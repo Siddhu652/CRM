@@ -11,7 +11,8 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+        user.hasMany(models.PasswordReset, { foreignKey: 'user_id' });
+
     }
   }
   user.init({
@@ -19,6 +20,11 @@ module.exports = (sequelize, DataTypes) => {
     email: DataTypes.STRING,
     password: DataTypes.STRING,
     phone_number: DataTypes.STRING,
+    role: {
+    type: DataTypes.ENUM('admin', 'user'),
+    allowNull: false,
+    defaultValue: 'user'
+  }
     
   }, {
     sequelize,
